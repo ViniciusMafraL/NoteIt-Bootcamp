@@ -14,7 +14,7 @@
     </div>
 
     <ion-button class="button" [class.disabled]="!canLogin()" (click)="login()">
-      {{ isLoading ? 'carregando...' : 'confirmar' }}
+      {{ isLoading ? 'Carregando...' : 'Confirmar' }}
       <app-half-circle-spinner *ngIf="isLoading" [animationDuration]="1000" [size]="25" [color]="'white'">
       </app-half-circle-spinner>
     </ion-button>

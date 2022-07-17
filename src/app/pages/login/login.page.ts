@@ -31,14 +31,14 @@ export class LoginPage {
     await this.helper.showToast('Carregando...');
 
     // alert
-    await this.helper.showAlert('Hello', [
+    await this.helper.showAlert('Salve!', [
       {
-        text: 'Ok',
-        handler: () => console.log('Ok!'),
+        text: 'Sim',
+        handler: () => console.log('AEEEEEEEEE!'),
       },
       {
-        text: 'Outro',
-        handler: () => console.log('Outro!'),
+        text: 'Não',
+        handler: () => console.log('Esse n poh!'),
       }
     ]);
 
