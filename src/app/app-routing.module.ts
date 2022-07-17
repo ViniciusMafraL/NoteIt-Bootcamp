@@ -16,6 +16,18 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
+  {
+    path: 'feed',
+    loadChildren: () => import('./pages/main/feed/feed.module').then( m => m.FeedPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/main/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/main/profile/profile.module').then( m => m.ProfilePageModule)
+  },
 ];
 
 @NgModule({
