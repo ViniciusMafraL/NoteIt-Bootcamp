@@ -1,20 +1,151 @@
-:host {
-    z-index: 999;
-    position: absolute;
-    bottom: 1.5rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
   
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+  app-half-circle-spinner {
+    margin-left: 1rem;
+  }
   
-    width: 90%;
-    height: 4rem;
-    background-color: white;
-    box-shadow: 0px 0px 9px #00000029;
-    border-radius: 33px;
+  .body {
+    position: absolute;
+    bottom: 0;
+  
+    height: 75%;
+    transition: height 250ms cubic-bezier(1, 0, 0.58, 1);
+    width: 100%;
+    padding: 3rem 1rem;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  
+    border-radius: 20px 20px 0 0;
+    background: white;
+    color: var(--postit-font-grey);
+  
+    >* {
+      animation: fade 0.25s;
+    }
+  
+    header {
+      width: 100%;
+      transition: 500ms;
+  
+      .logo {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+  
+        transition: width 500ms;
+  
+        &--img {
+          transform: scale(1);
+          transition: all 500ms;
+        }
+      }
+    }
+  }
+  
+  
+  .login {
+    &--inputs {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-style: italic;
+      background: white;
+  
+      .login--inputs--title {
+        color: #707070;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+        font-style: italic;
+        padding-left: 1rem;
+      }
+  
+      input {
+        margin-bottom: 1rem;
+      }
+    }
+  
+    &--footer {
+      display: flex;
+      font-size: small;
+      color: #707070;
+  
+      &-register {
+        color: #2D9FDB;
+      }
+    }
+  
+    &--confirm {
+      margin-top: 2rem;
+    }
+  
+  }
+  
+  .input-default {
+    padding: 1rem;
+  
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    outline: 0;
+    border-radius: 20px;
+  
+    background: transparent;
+    font-size: small;
+  }
+  
+  .button-default {
+    padding: 1.5rem;
+  
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+  
+    background-color: #2D9FDB;
+    border-radius: 50px;
+  }
+  
+  
+  .signing {
+    &--body {
+      height: 95%;
+    }
+  
+    &--logo {
+      width: 20% !important;
+  
+      &--img {
+        height: 3rem;
+      }
+    }
+  }
+  
+  .signup {
+    &--required {
+      padding: 0 0 1rem 1rem;
+      font-size: small;
+      font-weight: bold;
+      font-style: normal;
+    }
+  }
+  
+  
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .hidden {
+    visibility: hidden;
+    width: 0;
   }
