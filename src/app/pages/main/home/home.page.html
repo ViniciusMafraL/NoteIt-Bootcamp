@@ -1,2 +1,21 @@
-<div>a
+<div class="home">
+
+  <header>
+    <img src="assets/imgs/login_logo.svg" alt="Logo">
+  </header>
+
+  <main>
+    <ng-container *ngFor="let post of postItArray">
+      <app-postit [postIt]="post"></app-postit>
+    </ng-container>
+  </main>
+
+  <div class="home--new-postit">
+    <div class="home--new-postit--item"></div>
+    <div class="home--new-postit--item"></div>
+    <div class="home--new-postit--item"></div>
+    <div class="home--new-postit--item"></div>
+    <div class="home--new-postit--item"></div>
+    <div class="home--new-postit--item"></div>
   </div>
+</div>
