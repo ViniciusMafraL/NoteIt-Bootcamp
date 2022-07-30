@@ -55,9 +55,9 @@ export class ProfilePage implements OnInit {
   ];
 
   public user = {
-    photoUrl: 'assets/images/user/vini.jpg',
-    name: 'Vini',
-    job: 'Developer'
+    photoUrl: 'assets/images/user/user-example-1.jpg',
+    name: 'Mafra',
+    job: 'Quality Assurance'
   };
 
   ngOnInit() {
