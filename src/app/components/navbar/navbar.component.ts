@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { NavbarEnum } from 'src/app/models/enums/navbar.enum';
+import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { NavbarItemInterface } from 'src/app/models/interfaces/navbar-item.interface';
+import { NavbarEnum } from '../../models/enum/navbar.enum';
+import { NavbarItemInterface } from '../../models/interfaces/navbar-item.interface';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {
+export class NavbarComponent   {
 
   constructor(
     private readonly router: Router,
@@ -17,14 +18,24 @@ export class NavbarComponent {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((route: NavigationEnd) => {
+        console.log(route);
+
         if (route.url.includes('/feed'))
           this.currentNavbar = NavbarEnum.FEED;
+
         if (route.url.includes('/home'))
           this.currentNavbar = NavbarEnum.HOME;
+
         if (route.url.includes('/profile'))
           this.currentNavbar = NavbarEnum.PROFILE;
+
+        console.log(this.currentNavbar);
       });
   }
+
+  public navbarEnum: typeof NavbarEnum = NavbarEnum;
+
+  public routeSubscription: Subscription;
 
   public currentNavbar: NavbarEnum = NavbarEnum.HOME;
 
@@ -32,20 +43,22 @@ export class NavbarComponent {
     {
       type: NavbarEnum.FEED,
       link: '/feed',
-      icon: 'assets/imgs/navbar_feed_disabled.svg',
-      iconActivated: 'assets/imgs/navbar_feed_enabled.svg',
+      icon: 'assets/images/navbar-feed.svg',
+      iconActivated: 'assets/images/navbar-feed-selected.svg',
     },
     {
       type: NavbarEnum.HOME,
       link: '/home',
-      icon: 'assets/imgs/navbar_home_disabled.svg',
-      iconActivated: 'assets/imgs/navbar_home_enabled.svg',
+      icon: 'assets/images/navbar-home.svg',
+      iconActivated: 'assets/images/navbar-home-selected.svg',
     },
     {
       type: NavbarEnum.PROFILE,
       link: '/profile',
-      icon: 'assets/imgs/navbar_profile_disabled.svg',
-      iconActivated: 'assets/imgs/navbar_profile_enabled.svg',
-    },
-  ]
+      icon: 'assets/images/navbar-profile.svg',
+      iconActivated: 'assets/images/navbar-profile-selected.svg',
+    }
+  ];
+
+
 }

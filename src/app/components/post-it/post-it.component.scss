@@ -1,0 +1,23 @@
+.post-it {
+  width: 43vw;
+  height: 35vh;
+  color: #343434;
+  padding: 0 2rem;
+  overflow: hidden;
+
+  h6 {
+    font-size: .8rem;
+    text-align: center;
+  }
+
+  p {
+    font-size: .8rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    line-clamp: 10;
+    -webkit-box-orient: vertical;
+  }
+}

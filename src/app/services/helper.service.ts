@@ -1,5 +1,6 @@
-import { Injectable } from "@angular/core";
-import { AlertButton, AlertController, ToastController } from "@ionic/angular";
+import { Injectable } from '@angular/core';
+import { AlertButton, AlertController, ToastController } from '@ionic/angular';
+import { by } from 'protractor';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +16,10 @@ export class HelperService {
 
   public async showToast(message: string, duration: number = 2000): Promise<void> {
     const toast = await this.toastController.create({
-      message: message,
-      duration: duration,
+      message,
+      duration,
     });
-    toast.present();
+    await toast.present();
   }
 
   public async showAlert(header: string, buttons: (AlertButton | string)[]): Promise<void> {
@@ -26,6 +27,6 @@ export class HelperService {
       header,
       buttons,
     });
-    alert.present();
+    await alert.present();
   }
 }
