@@ -1,20 +1,20 @@
 <div class="feed-detail">
-  <img class="detail" src="assets/images/quadriculado.svg">
+  <img class="detail" src="assets/imgs/background.svg">
 
   <header>
-    <img class="go-back" src="assets/images/go-back.svg" (click)="backToFeed()">
-    <img class="noteAndFriends" src="assets/images/logo-feed.svg">
+    <img class="go-back" src="assets/imgs/go-back.svg" [routerLink]="['/feed']">
+    <img class="noteAndFriends" src="assets/imgs/note_and_friends.svg">
   </header>
 
   <main>
-    <div *ngIf="postIt" class="feed-item" [style.background]="postIt.color">
+    <div *ngIf="postIt" class="feed-item" [style.background-color]="postIt.color">
       <header>
         <ion-avatar class="user--avatar">
-          <img src="assets/images/user/user-example-2.jpg"/>
+          <img src="assets/imgs/user/user-example-1.jpg" />
         </ion-avatar>
         <div class="user--info">
           <span class="user--info--name">
-            Lopes
+            Ana Bonfim
           </span>
           <span class="user--info--role">
             Economista
@@ -30,25 +30,27 @@
         </div>
         <div class="comments">
           <ng-container *ngFor="let comment of postIt.comments">
-            <app-comment [comment]="comment"></app-comment>
+            <div class="comment-item">
+              <app-comment [comment]="comment"></app-comment>
+            </div>
           </ng-container>
         </div>
       </main>
-      <footer [style.background]="postIt.color">
+      <footer [style.background-color]="postIt.color">
         <div class="comment--section">
           <input type="text" placeholder="Inserir comentário">
-          <button type="button"> Publicar</button>
+          <button type="button"> Publicar </button>
         </div>
         <div class="actions--section">
           <ng-container *ngIf="!isLiked else liked">
-            <img src="assets/images/like-icon.svg" (click)="isLiked = !isLiked">
+            <img src="assets/imgs/postit_like_heart.svg" (click)="setLikeToPostIt()">
           </ng-container>
         </div>
       </footer>
     </div>
-
-    <ng-template #liked>
-      <img src="assets/images/liked-icon.svg" (click)="isLiked = !isLiked">
-    </ng-template>
   </main>
 </div>
+
+<ng-template #liked>
+  <img src="assets/imgs/postit_like_heart_filled.svg" (click)="setLikeToPostIt()">
+</ng-template>

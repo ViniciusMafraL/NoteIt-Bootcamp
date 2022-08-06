@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { PostItColorEnum } from '../../../models/enum/post-it-color.enum';
-import { PostItProxy } from '../../../models/proxies/post-it.proxy';
+import { PostItColorEnum } from 'src/app/models/enums/postit-color.enum';
+import { PostItProxy } from 'src/app/models/proxies/postit.proxy';
+import { HttpAsyncService } from '../../../modules/http-async/services/http-async.service';
+import { apiRoutes } from '../../../../environments/api-routes';
 
 @Component({
   selector: 'app-feed',
@@ -11,48 +12,49 @@ import { PostItProxy } from '../../../models/proxies/post-it.proxy';
 export class FeedPage implements OnInit {
 
   constructor(
-    private readonly router: Router
-  ) { }
+    private readonly http: HttpAsyncService,
+  ) {
+    this.http.get(apiRoutes.notes.me).then(console.log);
+  }
 
-  public postItList: PostItProxy[] = [
+  public postItArray: PostItProxy[] = [
     {
       id: 0,
-      title: 'Título do Post',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et ex faucibus, semper ipsum non, posuere erat. In ultricies a odio sed laoreet. . Aenean sagittis, magna id rutrum fermentum, orci velit molestie urna, id auctor sem eros vitae tortor.',
-      color: PostItColorEnum.YELLOW,
+      title: 'Título do post0',
+      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
+      color: PostItColorEnum.GREEN
     },
     {
       id: 1,
-      title: 'Título do Post1',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et ex faucibus, semper ipsum non, posuere erat. In ultricies a odio sed laoreet. . Aenean sagittis, magna id rutrum fermentum, orci velit molestie urna, id auctor sem eros vitae tortor.',
-      color: PostItColorEnum.ROSE,
+      title: 'Título do post1',
+      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
+      color: PostItColorEnum.YELLOW
     },
     {
       id: 2,
-      title: 'Título do Post2',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et ex faucibus, semper ipsum non, posuere erat. In ultricies a odio sed laoreet. . Aenean sagittis, magna id rutrum fermentum, orci velit molestie urna, id auctor sem eros vitae tortor.',
-      color: PostItColorEnum.GREEN,
+      title: 'Título do post2',
+      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
+      color: PostItColorEnum.BLUE
     },
     {
       id: 3,
-      title: 'Título do Post3',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et ex faucibus, semper ipsum non, posuere erat. In ultricies a odio sed laoreet. . Aenean sagittis, magna id rutrum fermentum, orci velit molestie urna, id auctor sem eros vitae tortor.',
-      color: PostItColorEnum.YELLOW,
+      title: 'Título do post3',
+      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
+      color: PostItColorEnum.PURPLE
     },
     {
       id: 4,
-      title: 'Título do Post4',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et ex faucibus, semper ipsum non, posuere erat. In ultricies a odio sed laoreet. . Aenean sagittis, magna id rutrum fermentum, orci velit molestie urna, id auctor sem eros vitae tortor.',
-      color: PostItColorEnum.BLUE,
+      title: 'Título do post4',
+      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
+      color: PostItColorEnum.RED
     },
     {
       id: 5,
-      title: 'Título do Post5',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et ex faucibus, semper ipsum non, posuere erat. In ultricies a odio sed laoreet. . Aenean sagittis, magna id rutrum fermentum, orci velit molestie urna, id auctor sem eros vitae tortor.',
-      color: PostItColorEnum.PURPLE,
-    },
+      title: 'Título do post4',
+      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
+      color: PostItColorEnum.PINK
+    }
   ];
-
 
   ngOnInit() {
   }

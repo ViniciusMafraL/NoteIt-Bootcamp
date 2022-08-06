@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostItProxy } from '../../models/proxies/post-it.proxy';
+import { PostItProxy } from 'src/app/models/proxies/postit.proxy';
 
 @Component({
   selector: 'app-feed-item',
@@ -13,13 +13,12 @@ export class FeedItemComponent implements OnInit {
   @Input()
   public postIt: PostItProxy;
 
-  @Input()
-  public isMyPost: boolean = false;
-
   public isLiked: boolean = false;
 
-  ngOnInit() {
-    console.log(this.postIt);
+  ngOnInit() { }
+
+  public setLikeToPostIt(): void {
+    this.isLiked = !this.isLiked;
   }
 
 }

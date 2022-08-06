@@ -1,17 +1,15 @@
-<div class="feed">
-  <img class="detail" src="assets/images/quadriculado.svg">
+<div class="feed">  
+  <img class="detail" src="assets/imgs/background.svg">
 
   <header>
-    <img class="note-and-friends" src="assets/images/logo-feed.svg">
+    <img class="noteAndFriends" src="assets/imgs/note_and_friends.svg">
   </header>
 
   <main>
-    <ng-container *ngFor="let post of postItList">
+    <ng-container *ngFor="let post of postItArray">
       <div class="feed-item">
-      <app-feed-item
-      [postIt]="post">
-      </app-feed-item>
-      </div>
+        <app-feed-item [postIt]="post"></app-feed-item>
+      </div>      
     </ng-container>
   </main>
 </div>

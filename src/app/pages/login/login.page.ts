@@ -1,112 +1,88 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginPayload } from '../../models/payloads/login.payload';
-import { RegisterPayload } from '../../models/payloads/register.payload';
-import { HelperService } from '../../services/helper.service';
-import { CustomValidators } from '../../utils/validators';
-import isValidPassword = CustomValidators.isValidPassword;
-import isValidEmail = CustomValidators.isValidEmail;
+import { LoginPayload } from 'src/app/models/payloads/login.payload';
+import { HelperService } from 'src/app/services/helper.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   constructor(
-    private readonly helperService: HelperService,
+    private readonly helper: HelperService,
     private readonly router: Router,
+    private readonly auth: AuthService,
   ) { }
 
   public loginPayload: LoginPayload = {
     email: '',
     password: '',
-  };
+  }
 
-  public registerPayload: RegisterPayload = {
+  public registerPayload = {
     name: '',
     email: '',
     confirmEmail: '',
     password: '',
     confirmPassword: '',
-  };
+  }
 
   public isLoading: boolean = false;
 
-  public isSignAccount: boolean = false;
-
-  public ngOnInit(): void {
-    console.log(this.registerPayload.email);
-  }
+  public isSigning: boolean = false;
 
   public async login(): Promise<void> {
-    if (!this.canLogin()) return;
+    if (!this.canLogin())
+      return;
 
     this.isLoading = true;
-    console.log(this.loginPayload);
+    const [isSuccess, message] = await this.auth.login(this.loginPayload.email, this.loginPayload.password);
+    this.isLoading = false;
 
-    await this.helperService.showToast('Logado com sucesso!', 2300);
+    if (isSuccess) {
+      return void await this.router.navigate(['/home']);
+    }
 
-    await this.helperService.showAlert('Logado com sucesso', [
-      {
-        text: 'Esqueci minha senha',
-        handler: () => console.log('Esqueci'),
-      },
-      {
-        text: 'Tentar novamente',
-        handler: () => console.log('Tentar'),
-      },
-    ]);
-
-    await this.router.navigate(['/home']);
-  }
-
-  public async register(): Promise<void> {
-    if(!this.canRegister()) return;
-
-    this.isLoading = true;
-    console.log(this.registerPayload);
-
-    await this.helperService.showToast('Registrado com sucesso!', 2300);
-
-    await this.helperService.showAlert('Registrado com sucesso', [
-      {
-        text: 'Cadastrado com sucesso!',
-        handler: () => console.log('Esqueci'),
-      },
-      {
-        text: 'Tentar novamente',
-        handler: () => console.log('Tentar'),
-      },
-    ]);
-
-    await this.router.navigateByUrl('/home');
+    // alert
+    await this.helper.showToast(message, 5_000);
   }
 
   public canLogin(): boolean {
-    if (isValidEmail(this.loginPayload.email) && isValidPassword(this.loginPayload.password))
+    const regex = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$');
+
+    const emailIsValid = regex.test(this.loginPayload.email);
+
+    if (emailIsValid && this.loginPayload.password.length >= 6)
       return true;
 
     return false;
   }
 
   public canRegister(): boolean {
-    if(this.registerPayload.email !== this.registerPayload.confirmEmail) return;
+    const regex = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$');
 
-    if (!isValidEmail(this.registerPayload.email) && (!isValidEmail(this.registerPayload.confirmEmail))) return;
+    if(this.registerPayload.name.trim().length<=0)
+     return false;
 
-    if(this.registerPayload.password !== this.registerPayload.confirmPassword) return;
+    if(!regex.test(this.registerPayload.email))
+      return false;
 
-    if (!isValidPassword(this.registerPayload.password) && !isValidPassword(this.registerPayload.confirmPassword)) return;
+    if(this.registerPayload.email !== this.registerPayload.confirmEmail)
+      return false;
 
-    if (this.registerPayload.name.length <= 3) return;
+    if(this.registerPayload.password.length < 6)
+      return false;
+
+    if(this.registerPayload.password !== this.registerPayload.confirmPassword)
+      return false;
 
     return true;
   }
 
   public logoClick($event: boolean): void {
-    console.log('Você clicou no logo');
     console.log($event);
   }
 

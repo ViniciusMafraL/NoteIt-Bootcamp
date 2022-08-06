@@ -1,4 +1,4 @@
-import { NavbarEnum } from '../enum/navbar.enum';
+import { NavbarEnum } from "../enums/navbar.enum";
 
 export interface NavbarItemInterface {
   type: NavbarEnum;

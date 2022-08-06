@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommentProxy } from '../../models/proxies/comment.proxy';
+import { CommentProxy } from 'src/app/models/proxies/comment.proxy';
 
 @Component({
   selector: 'app-comment',

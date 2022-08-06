@@ -1,100 +1,5 @@
-.background {
-  width: 100%;
-  height: 40vh;
-  object-fit: cover;
-}
-
-.detail {
-  position: absolute;
-  top: -20px;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-}
-
-.container {
-  position: absolute;
-  bottom: 0;
-  height: 65vh;
-  width: 100%;
-  transition: height 300ms ease;
-
-  background-color: #ffffff;
-  border-radius: 28px 28px 0 0;
-
-  &--login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 65vh;
-
-    app-logo {
-      width: 22%;
-      margin: 2.8rem;
-
-      @media screen and (min-width: 1000px) {
-        width: 10%;
-      }
-    }
-
-    &--inputs {
-      display: flex;
-      flex-direction: column;
-      width: 80%;
-    }
-
-    p {
-      color: #707070;
-      margin-top: 2rem;
-      font-size: .85rem;
-
-      a {
-        color: #2D9FDB;
-        text-decoration: none;
-      }
-    }
-  }
-
-
-  &--sign {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 0 2rem 0 2rem;
-
-    &--upside {
-      display: flex;
-      align-items: center;
-      width: 100%;
-
-      app-logo {
-        width: 15%;
-        margin-left: 2rem;
-        //animation-name: logo-animation;
-        //animation-duration: 2s;
-      }
-    }
-
-    p {
-      color: #707070;
-      font-size: .85rem;
-      font-weight: bold;
-    }
-
-    ion-button {
-      width: 100%;
-      height: 3.5rem;
-      margin: .5rem 0 4rem 0;
-    }
-  }
-
-}
-
-.disabled {
-  opacity: .5;
+.disabled, button[disabled] {
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -102,42 +7,146 @@ app-half-circle-spinner {
   margin-left: 1rem;
 }
 
-span {
-  color: #707070;
-  font-weight: bold;
-  letter-spacing: 2px;
-  margin-bottom: .5rem;
-  font-style: italic;
-  font-size: .95rem;
-  opacity: .6;
-  padding-left: 1rem;
+.body {
+  position: absolute;
+  bottom: 0;
+
+  height: 75%;
+  transition: height 250ms cubic-bezier(1, 0, 0.58, 1);
   width: 100%;
+  padding: 3rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 20px 20px 0 0;
+  background: white;
+  color: var(--postit-font-grey);
+
+  >* {
+    animation: fade 0.25s;
+  }
+
+  header {
+    width: 100%;
+    transition: 500ms;
+
+    .logo {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      transition: width 500ms;
+
+      &--img {
+        transform: scale(1);
+        transition: all 500ms;
+      }
+    }
+  }
 }
 
-input {
-  border: 1px solid #707070;
-  background: transparent;
+
+.login {
+  &--inputs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-style: italic;
+    background: white;
+    color: black;
+
+    .login--inputs--title {
+      color: #707070;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      font-style: italic;
+      padding-left: 1rem;
+    }
+
+    input {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &--footer {
+    display: flex;
+    font-size: small;
+    color: #707070;
+
+    &-register {
+      color: #2D9FDB;
+    }
+  }
+
+  &--confirm {
+    margin-top: 2rem;
+  }
+
+}
+
+.input-default {
+  padding: 1rem;
+
+  border: 1px solid rgba(0, 0, 0, 0.2);
   outline: 0;
   border-radius: 20px;
-  margin-bottom: 1rem;
-  padding: .95rem;
-  color: black;
-  opacity: .6;
-  width: 100%;
+
+  background: transparent;
+  font-size: small;
 }
 
-.container-open {
-  height: 95vh;
+.button-default {
+  padding: 1.5rem;
+
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+
+  background-color: #2D9FDB;
+  border-radius: 50px;
 }
 
-@keyframes logo-animation {
+
+.signing {
+  &--body {
+    height: 95%;
+  }
+
+  &--logo {
+    width: 20% !important;
+
+    &--img {
+      height: 3rem;
+    }
+  }
+}
+
+.signup {
+  &--required {
+    padding: 0 0 1rem 1rem;
+    font-size: small;
+    font-weight: bold;
+    font-style: normal;
+  }
+}
+
+
+@keyframes fade {
   0% {
-    width: 22%;
+    opacity: 0;
   }
 
   100% {
-    position: absolute;
-    width: 15%;
-    margin-left: 2rem;
+    opacity: 1;
   }
+}
+
+.hidden {
+  visibility: hidden;
+  width: 0;
 }
