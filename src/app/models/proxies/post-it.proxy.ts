@@ -1,4 +1,4 @@
-import { PostItColorEnum } from '../enum/post-it-color.enum';
+import { PostItColorEnum } from '../enums/post-it-color.enum';
 import { CommentProxy } from './comment.proxy';
 
 export interface PostItProxy {

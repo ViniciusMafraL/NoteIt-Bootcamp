@@ -1,8 +1,8 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { HttpAsyncService } from './services/http-async.service';
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { BearerTokenInterceptor } from './interceptors/bearer-token.interceptor';
+import { HttpAsyncService } from './services/http-async.service';
 
 @NgModule({
   providers: [

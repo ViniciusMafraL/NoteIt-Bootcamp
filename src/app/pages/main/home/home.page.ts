@@ -1,114 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PostitModalComponent } from 'src/app/modals/postit-modal/postit-modal.component';
-import { PostItColorEnum } from 'src/app/models/enums/postit-color.enum';
-import { PostItProxy } from 'src/app/models/proxies/postit.proxy';
+import { PostItModalComponent } from '../../../components/modals/post-it-modal/post-it-modal.component';
+import { PostItColorEnum } from '../../../models/enums/post-it-color.enum';
+import { PostItProxy } from '../../../models/proxies/post-it.proxy';
+import { HelperService } from '../../../services/helper.service';
+import { NoteService } from '../../../services/note.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
 
   constructor(
-    public modalController: ModalController
+    private readonly modalController: ModalController,
+    private readonly note: NoteService,
+    private readonly helper: HelperService
   ) { }
 
-  public postItArray: PostItProxy[] = [
-    {
-      id: 0,
-      title: 'Título do post0',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
-      color: PostItColorEnum.GREEN
-    },
-    {
-      id: 1,
-      title: 'Título do post1',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
-      color: PostItColorEnum.YELLOW
-    },
-    {
-      id: 2,
-      title: 'Título do post2',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
-      color: PostItColorEnum.BLUE
-    },
-    {
-      id: 3,
-      title: 'Título do post3',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
-      color: PostItColorEnum.PURPLE
-    },
-    {
-      id: 4,
-      title: 'Título do post4',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
-      color: PostItColorEnum.RED
-    },
-    {
-      id: 5,
-      title: 'Título do post4',
-      annotation: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis imperdiet sem. Suspendisse potenti. Curabitur eget nibh sed arcu cursus venenatis.',
-      color: PostItColorEnum.PINK
-    }
-  ];
+  public postItList: PostItProxy[] = [];
 
-  public postItColorEnum: typeof PostItColorEnum = PostItColorEnum;
+  public colorEnum: typeof PostItColorEnum = PostItColorEnum;
 
-  ngOnInit() {
-    console.log('postItColorEnum', this.postItColorEnum);
+  public isLoading: boolean = false;
+
+  public async ionViewDidEnter(): Promise<void> {
+    await this.loadMyNotes();
   }
 
-  public consoleColor(color: string): void{
-    console.log("color", color);
+  public async loadMyNotes(): Promise<void> {
+    this.isLoading = true;
+    const [notes, errorMessage] = await this.note.getMyNotes();
+    this.isLoading = false;
+
+    if (errorMessage) return this.helper.showToast(errorMessage, 5_000);
+
+    this.postItList = notes;
   }
 
-  public printPostIt(event: PostItProxy): void {
-    console.log('postit', event);
+  public printOutput(event: PostItProxy): void {
+    console.log('printout');
   }
 
-  public async openPostModal(postIt: PostItProxy): Promise<void> {
-
+  public async openNewPostItModal(color: string): Promise<void> {
     const modal = await this.modalController.create({
-      component: PostitModalComponent,
+      mode: 'ios',
+      component: PostItModalComponent,
+      componentProps: { color, create: true },
+      cssClass: 'background-modal',
+      backdropDismiss: true,
+    });
+    await modal.present();
+
+    modal.onDidDismiss().then(async ({ data }) => {
+      if (data.postIt) {
+        this.postItList.push(data.postIt);
+      }
+    });
+  }
+
+  public async openPostItModal(postIt: PostItProxy): Promise<void> {
+    const modal = await this.modalController.create({
+      component: PostItModalComponent,
       cssClass: 'background-modal',
       backdropDismiss: true,
       componentProps: {
-        postIt
-      }
+        postIt,
+      },
     });
 
     await modal.present();
 
     modal.onDidDismiss().then(async ({ data }) => {
-      console.log(data);
       if (data.isDeleted) {
-        this.postItArray = this.postItArray.filter(post => post.id !== data.postit.id);
+        this.postItList = this.postItList.filter(
+          (post) => post.id !== data.postit.id
+        );
       }
     });
-  }
-
-  public async openNewPostModal(color: string): Promise<void> {
-
-    const modal = await this.modalController.create({
-      component: PostitModalComponent,
-      cssClass: 'background-modal',
-      backdropDismiss: true,
-      componentProps: {
-        color,
-        create: true
-      }
-    });
-
-    await modal.present();
-
-    modal.onDidDismiss().then(async ({ data }) => {
-      if (data.postit) {
-        this.postItArray.push(data.postit);
-      }
-    });
-
   }
 
 }

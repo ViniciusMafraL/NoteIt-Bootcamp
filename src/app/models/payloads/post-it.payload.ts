@@ -1,8 +1,9 @@
-import { PostItColorEnum } from '../enum/post-it-color.enum';
+import { PostItColorEnum } from '../enums/post-it-color.enum';
 
 export interface PostItPayload {
+  id?: number;
   title: string;
   annotation: string;
   color: PostItColorEnum;
-  id?: number;
+  isPublic: boolean;
 }

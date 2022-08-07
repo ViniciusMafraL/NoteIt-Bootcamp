@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { HalfCircleSpinnerModule } from 'angular-epic-spinners';
+import { LogoComponent } from '../../components/logo/logo.component';
 
 import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
-import { HalfCircleSpinnerModule } from 'angular-epic-spinners';
-import { LogoComponent } from 'src/app/components/logo/logo.component';
 
 @NgModule({
   imports: [
@@ -18,9 +18,9 @@ import { LogoComponent } from 'src/app/components/logo/logo.component';
     LoginPageRoutingModule,
     HalfCircleSpinnerModule,
   ],
-  declarations: [
-    LoginPage,
+  declarations: [LoginPage, LogoComponent],
+  exports: [
     LogoComponent,
-  ]
+  ],
 })
-export class LoginPageModule { }
+export class LoginPageModule {}

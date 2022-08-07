@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'feed/:id',
-    loadChildren: () => import('./pages/main/feed-detail/feed-detail.module').then( m => m.FeedDetailPageModule),
+    loadChildren: () => import('./pages/main/feed-detail/feed-detail.module').then(m => m.FeedDetailPageModule)
   },
   {
     path: '**',

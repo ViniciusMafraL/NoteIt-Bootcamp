@@ -1,15 +1,19 @@
-<div class="feed">  
-  <img class="detail" src="assets/imgs/background.svg">
+<div class="feed">
+  <img class="detail" src="assets/images/quadriculado.svg">
 
   <header>
-    <img class="noteAndFriends" src="assets/imgs/note_and_friends.svg">
+    <img class="note-and-friends" src="assets/images/logo-feed.svg">
   </header>
 
   <main>
-    <ng-container *ngFor="let post of postItArray">
+    <ng-container *ngFor="let post of postItList">
       <div class="feed-item">
-        <app-feed-item [postIt]="post"></app-feed-item>
-      </div>      
+      <app-feed-item
+      [postIt]="post">
+      </app-feed-item>
+      </div>
     </ng-container>
+
+    <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
   </main>
 </div>

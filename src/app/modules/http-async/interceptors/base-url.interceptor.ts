@@ -12,4 +12,5 @@ export class BaseUrlInterceptor implements HttpInterceptor {
 
     return next.handle(req);
   }
+
 }
