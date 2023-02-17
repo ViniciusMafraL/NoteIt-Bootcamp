@@ -1,2 +1,3 @@
 # NoteIt-Bootcamp
-Bootcamp - Liga
+
+Angular JS Bootcamp - Liga
